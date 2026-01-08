@@ -31,7 +31,7 @@ public class FileReader {
                     .map(line -> line.split(DELIMITER))
                     .map(splitedLine -> {
                         String crewName = splitedLine[0].trim();
-                        LocalDateTime attendanceDateTime = converter.convert(splitedLine[1].trim());
+                        LocalDateTime attendanceDateTime = converter.convertToMinute(splitedLine[1].trim());
                         AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(attendanceDateTime);
 
                         return new Attendance(crewName, attendanceDateTime, attendanceResult);

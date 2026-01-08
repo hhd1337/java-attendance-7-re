@@ -5,15 +5,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
+public class StringToLocalDateTimeConverter {
     private static final DateTimeFormatter MINUTE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter TIME_MINUTE_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
-
-    @Override
-    public LocalDateTime convert(String value) {
-        // 기본 convert는 "분"까지로
-        return convertToMinute(value);
-    }
 
     public LocalDateTime convertToMinute(String value) {
         String trimmed = validateAndTrim(value);
