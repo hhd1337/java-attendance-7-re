@@ -59,7 +59,7 @@ public class InputHandler {
         );
     }
 
-    public AttendanceCatalog inputAttendTime(String crewName, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
+    public Attendance inputAttendTime(String crewName, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
         StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
         return inputTemplate.execute(
                 inputView::inputAttendTime,
@@ -69,8 +69,10 @@ public class InputHandler {
                     LocalDateTime attendDateTime = LocalDateTime.of(currDate, attendTime);
                     AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(attendDateTime);
 
-                    attendanceCatalog.addAttendance(new Attendance(crewName, attendDateTime, attendanceResult));
-                    return attendanceCatalog;
+                    Attendance attendance = new Attendance(crewName, attendDateTime, attendanceResult);
+                    attendanceCatalog.addAttendance(attendance);
+
+                    return attendance;
                 }
         );
     }
