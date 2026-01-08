@@ -1,6 +1,8 @@
 package attendance.controller;
 
 import attendance.converter.StringToMenuConverter;
+import attendance.domain.AttendanceCatalog;
+import attendance.domain.Crews;
 import attendance.domain.Holiday;
 import attendance.domain.Menu;
 import attendance.view.InputView;
@@ -32,6 +34,22 @@ public class InputHandler {
                         validateCurrdate(currDate);
                     }
                     return converter.convert(value);
+                }
+        );
+    }
+
+    public String inputNickName(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
+        return inputTemplate.execute(
+                inputView::inputNickName,
+                value -> {
+                    value = value.trim();
+                    if (!crews.isExists(value)) {
+                        throw new IllegalArgumentException("등록되지 않은 닉네임입니다.");
+                    }
+                    if (attendanceCatalog.isCrewAttendedToday(value, currDate)) {
+                        throw new IllegalArgumentException("이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해 주세요.");
+                    }
+                    return value;
                 }
         );
     }

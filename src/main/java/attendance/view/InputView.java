@@ -7,4 +7,8 @@ public class InputView {
     public String inputMenu() {
         return Console.readLine();
     }
+
+    public String inputNickName() {
+        return Console.readLine();
+    }
 }
