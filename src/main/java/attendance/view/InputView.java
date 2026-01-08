@@ -11,4 +11,8 @@ public class InputView {
     public String inputNickName() {
         return Console.readLine();
     }
+    
+    public String inputAttendTime() {
+        return Console.readLine();
+    }
 }

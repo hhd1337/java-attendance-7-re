@@ -17,4 +17,8 @@ public class AttendanceCatalog {
                                 attendance.getAttendanceDateTime().toLocalDate().equals(currDate));
     }
 
+    public void addAttendance(Attendance attendance) {
+        attendanceList.add(attendance);
+    }
+
 }

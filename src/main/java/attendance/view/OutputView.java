@@ -23,4 +23,9 @@ public class OutputView {
     public void printNickNameInputPrompt() {
         System.out.println("닉네임을 입력해 주세요.");
     }
+
+    public void printAttendTimeInputPrompt() {
+        System.out.println("등교 시간을 입력해 주세요.");
+    }
+
 }

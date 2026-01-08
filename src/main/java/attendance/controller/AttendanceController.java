@@ -51,6 +51,9 @@ public class AttendanceController {
         outputView.printNickNameInputPrompt();
         String crewName = inputHandler.inputNickName(crews, attendanceCatalog, currDate);
 
+        outputView.printAttendTimeInputPrompt();
+        inputHandler.inputAttendTime(crewName, attendanceCatalog, currDate);
+
     }
 
 }

@@ -1,13 +1,18 @@
 package attendance.controller;
 
+import attendance.converter.StringToLocalDateTimeConverter;
 import attendance.converter.StringToMenuConverter;
+import attendance.domain.Attendance;
 import attendance.domain.AttendanceCatalog;
+import attendance.domain.AttendanceResult;
 import attendance.domain.Crews;
 import attendance.domain.Holiday;
 import attendance.domain.Menu;
 import attendance.view.InputView;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -50,6 +55,22 @@ public class InputHandler {
                         throw new IllegalArgumentException("이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해 주세요.");
                     }
                     return value;
+                }
+        );
+    }
+
+    public AttendanceCatalog inputAttendTime(String crewName, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
+        StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
+        return inputTemplate.execute(
+                inputView::inputAttendTime,
+                value -> {
+                    value = value.trim();
+                    LocalTime attendTime = converter.convertToTimeMinute(value);
+                    LocalDateTime attendDateTime = LocalDateTime.of(currDate, attendTime);
+                    AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(attendDateTime);
+
+                    attendanceCatalog.addAttendance(new Attendance(crewName, attendDateTime, attendanceResult));
+                    return attendanceCatalog;
                 }
         );
     }
