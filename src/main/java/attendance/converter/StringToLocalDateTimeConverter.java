@@ -11,7 +11,7 @@ public class StringToLocalDateTimeConverter implements Converter<String, LocalDa
 
     @Override
     public LocalDateTime convert(String value) {
-        // 기본 convert는 "분"까지로 가정 (가장 많이 쓰는 케이스)
+        // 기본 convert는 "분"까지로
         return convertToMinute(value);
     }
 
@@ -29,7 +29,7 @@ public class StringToLocalDateTimeConverter implements Converter<String, LocalDa
         try {
             return LocalTime.parse(trimmed, TIME_MINUTE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("시간(분) 형식이 올바르지 않습니다. 예) 09:59");
+            throw new IllegalArgumentException("잘못된 형식을 입력하였습니다.");
         }
     }
 

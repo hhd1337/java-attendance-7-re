@@ -3,6 +3,7 @@ package attendance.view;
 import attendance.util.ErrorMessage;
 import attendance.view.formatter.LocalDateTimeFormatter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class OutputView {
 
@@ -11,7 +12,7 @@ public class OutputView {
     }
 
     public void printHelloAndMenu(LocalDate currDate) {
-        String formattedDate = LocalDateTimeFormatter.formatCurrenstDate(currDate);
+        String formattedDate = LocalDateTimeFormatter.formatCurrentDate(currDate);
         System.out.println("오늘은 " + formattedDate + "입니다. 기능을 선택해 주세요.");
         System.out.println("1. 출석 확인");
         System.out.println("2. 출석 수정");
@@ -26,6 +27,14 @@ public class OutputView {
 
     public void printAttendTimeInputPrompt() {
         System.out.println("등교 시간을 입력해 주세요.");
+    }
+
+    // 12월 13일 금요일 09:59 (출석)
+    public void printAttendInsertResult(LocalDateTime attendTime, String AttendanceResultKor) {
+
+        String dateTimeString = LocalDateTimeFormatter.localDateTimeToStringFormat(attendTime);
+        System.out.println(dateTimeString + " (" + AttendanceResultKor + ")");
+
     }
 
 }

@@ -1,5 +1,6 @@
 package attendance.controller;
 
+import attendance.domain.Attendance;
 import attendance.domain.AttendanceCatalog;
 import attendance.domain.Crews;
 import attendance.domain.Menu;
@@ -52,8 +53,10 @@ public class AttendanceController {
         String crewName = inputHandler.inputNickName(crews, attendanceCatalog, currDate);
 
         outputView.printAttendTimeInputPrompt();
-        inputHandler.inputAttendTime(crewName, attendanceCatalog, currDate);
+        Attendance attendance = inputHandler.inputAttendTime(crewName, attendanceCatalog, currDate);
 
+        outputView.printAttendInsertResult(attendance.getAttendanceDateTime(),
+                attendance.getAttendanceResult().getAttendanceResultKor());
     }
 
 }

@@ -2,6 +2,8 @@ package attendance.view.formatter;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -19,5 +21,16 @@ public class LocalDateTimeFormatter {
         String dayOfWeekKor = LocalDateToDayOfWeekKorFull(currDate);
 
         return month + "월 " + day + "일 " + dayOfWeekKor;
+    }
+
+    // 12월 13일 금요일 09:59
+    public static String localDateTimeToStringFormat(LocalDateTime dateTime) {
+        String dow = LocalDateToDayOfWeekKorFull(dateTime.toLocalDate()); // 예: "월요일"
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                "MM월 dd일 " + dow + " HH:mm",
+                Locale.KOREAN
+        );
+        return dateTime.format(formatter);
     }
 }

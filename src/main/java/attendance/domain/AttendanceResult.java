@@ -4,7 +4,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public enum AttendanceResult {
-    SUCCESS, LATE, ABSENT;
+    SUCCESS("출석"),
+    LATE("지각"),
+    ABSENT("결석");
+
+    private String AttendanceResultKor;
+
+    AttendanceResult(String attendanceResultKor) {
+        AttendanceResultKor = attendanceResultKor;
+    }
 
     // LocalDateTime을 주면 SUCCESS, LATE, ABSENT 반환하는 함수
     public static AttendanceResult judgeAttendanceResult(LocalDateTime attendedDateTime) {
@@ -20,4 +28,9 @@ public enum AttendanceResult {
         }
         return SUCCESS;
     }
+
+    public String getAttendanceResultKor() {
+        return AttendanceResultKor;
+    }
+
 }
