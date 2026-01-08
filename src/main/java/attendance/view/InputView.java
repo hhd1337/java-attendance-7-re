@@ -23,4 +23,8 @@ public class InputView {
     public String inputUpdateDayOfMonth() {
         return Console.readLine();
     }
+
+    public String inputUpdateTime() {
+        return Console.readLine();
+    }
 }

@@ -2,6 +2,7 @@ package attendance.domain;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AttendanceCatalog {
     private List<Attendance> attendanceList;
@@ -28,6 +29,12 @@ public class AttendanceCatalog {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("해당 날짜에 해당 크루의 출석 기록이 없습니다."));
 
+    }
+
+    public void removeAttendance(Attendance oldAttendance) {
+        this.attendanceList = attendanceList.stream()
+                .filter(attendance -> attendance.equals(oldAttendance))
+                .collect(Collectors.toList());
     }
 
 }

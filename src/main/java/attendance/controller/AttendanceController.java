@@ -1,5 +1,6 @@
 package attendance.controller;
 
+import attendance.controller.dto.AttendanceDto;
 import attendance.domain.Attendance;
 import attendance.domain.AttendanceCatalog;
 import attendance.domain.Crews;
@@ -38,7 +39,7 @@ public class AttendanceController {
             runAttendanceInsert(crews, attendanceCatalog, currDate);
         }
         if (menu == Menu.ATTENDANCE_UPDATE) {
-            runAttendanceUpdate(crews, currDate);
+            runAttendanceUpdate(crews, attendanceCatalog, currDate);
         }
         if (menu == Menu.CREW_ATTENDANCE_HISTORY) {
             // runCrewAttendanceHistory();
@@ -48,12 +49,16 @@ public class AttendanceController {
         }
     }
 
-    private void runAttendanceUpdate(Crews crews, LocalDate currDate) {
+    private void runAttendanceUpdate(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
         outputView.printNickNameInputForUpdatePrompt();
         String crewName = inputHandler.inputNickNameForUpdate(crews);
 
         outputView.printUpdateDateInputPrompt();
         LocalDate updateDate = inputHandler.inputUpdateDayOfMonth(currDate);
+
+        outputView.printUpdateTimeInputPrompt();
+        AttendanceDto attendanceDto = inputHandler.inputUpdateTime(crewName, attendanceCatalog, updateDate);
+
 
     }
 

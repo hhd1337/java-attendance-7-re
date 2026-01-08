@@ -1,5 +1,6 @@
 package attendance.controller;
 
+import attendance.controller.dto.AttendanceDto;
 import attendance.converter.StringToLocalDateTimeConverter;
 import attendance.converter.StringToMenuConverter;
 import attendance.domain.Attendance;
@@ -107,29 +108,31 @@ public class InputHandler {
         );
     }
 
-//    public LocalDate inputUpdateDayOfMonth(String crewName, AttendanceCatalog attendanceCatalog) {
-//        StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
-//
-//        return inputTemplate.execute(
-//                inputView::inputUpdateDayOfMonth,
-//                value -> {
-//                    value = value.trim(); // 3
-//                    LocalDate attendDate = converter.convertToLocalDate(value);
-//
-//                    Attendance oldAttendance = attendanceCatalog.findAttendanceByDate(attendDate, crewName);
-//
-//                    LocalDateTime attendDateTime = LocalDateTime.of(currDate, attendTime);
-//                    AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(attendDateTime);
-//
-//                    Attendance attendance = new Attendance(crewName, attendDateTime, attendanceResult);
-//                    attendanceCatalog.addAttendance(attendance);
-//
-//                    AttendanceDto attendanceDto = new AttendanceDto(oldAttendance,);
-//
-//                    return attendanceDto;
-//                }
-//        );
-//    }
+    public AttendanceDto inputUpdateTime(String crewName, AttendanceCatalog attendanceCatalog, LocalDate updateDate) {
+        StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
+
+        return inputTemplate.execute(
+                inputView::inputUpdateTime,
+                value -> {
+                    value = value.trim(); // 09:58
+                    LocalTime updateTime = converter.convertToTimeMinute(value);
+
+                    Attendance oldAttendance = attendanceCatalog.findAttendanceByDate(updateDate, crewName);
+
+                    LocalDateTime updateDateTime = LocalDateTime.of(updateDate, updateTime);
+                    AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(updateDateTime);
+
+                    Attendance newAttendance = new Attendance(crewName, updateDateTime, attendanceResult);
+
+                    attendanceCatalog.addAttendance(newAttendance);
+
+                    // oldAttendance 삭제하는 로직 추가
+                    attendanceCatalog.removeAttendance(oldAttendance);
+
+                    return new AttendanceDto(oldAttendance, newAttendance);
+                }
+        );
+    }
 
     private void validateCurrdate(LocalDate currDate) {
         // 주말 또는 공휴일에 출석을 확인하거나 수정하는 경우
