@@ -38,7 +38,7 @@ public class AttendanceController {
             runAttendanceInsert(crews, attendanceCatalog, currDate);
         }
         if (menu == Menu.ATTENDANCE_UPDATE) {
-            // runAttendanceUpdate();
+            runAttendanceUpdate(crews);
         }
         if (menu == Menu.CREW_ATTENDANCE_HISTORY) {
             // runCrewAttendanceHistory();
@@ -46,6 +46,13 @@ public class AttendanceController {
         if (menu == Menu.EXPULSION_DANGERED_CREWS) {
             // runExpulsionDangeredCrews();
         }
+    }
+
+    private void runAttendanceUpdate(Crews crews) {
+        outputView.printNickNameInputForUpdatePrompt();
+        String crewName = inputHandler.inputNickNameForUpdate(crews);
+
+        
     }
 
     private void runAttendanceInsert(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {

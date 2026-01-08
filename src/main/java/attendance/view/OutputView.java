@@ -31,10 +31,12 @@ public class OutputView {
 
     // 12월 13일 금요일 09:59 (출석)
     public void printAttendInsertResult(LocalDateTime attendTime, String AttendanceResultKor) {
-
         String dateTimeString = LocalDateTimeFormatter.localDateTimeToStringFormat(attendTime);
         System.out.println(dateTimeString + " (" + AttendanceResultKor + ")");
+    }
 
+    public void printNickNameInputForUpdatePrompt() {
+        System.out.println("출석을 수정하려는 크루의 닉네임을 입력해 주세요.");
     }
 
 }
