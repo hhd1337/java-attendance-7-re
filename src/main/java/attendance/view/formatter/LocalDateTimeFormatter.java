@@ -13,7 +13,7 @@ public class LocalDateTimeFormatter {
     }
 
     // 12월 13일 금요일
-    public static String formatCurrenstDate(LocalDate currDate) {
+    public static String formatCurrentDate(LocalDate currDate) {
         int month = currDate.getMonthValue();
         int day = currDate.getDayOfMonth();
         String dayOfWeekKor = LocalDateToDayOfWeekKorFull(currDate);
