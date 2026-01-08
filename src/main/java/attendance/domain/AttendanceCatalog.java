@@ -21,4 +21,13 @@ public class AttendanceCatalog {
         attendanceList.add(attendance);
     }
 
+    public Attendance findAttendanceByDate(LocalDate date, String crewName) {
+        return attendanceList.stream()
+                .filter(attendance -> attendance.getAttendanceDateTime().toLocalDate().equals(date))
+                .filter(attendance -> attendance.getCrewName().equals(crewName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 날짜에 해당 크루의 출석 기록이 없습니다."));
+
+    }
+
 }

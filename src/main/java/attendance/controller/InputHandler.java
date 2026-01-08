@@ -90,6 +90,47 @@ public class InputHandler {
         );
     }
 
+    public LocalDate inputUpdateDayOfMonth(LocalDate currDate) {
+        StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
+
+        return inputTemplate.execute(
+                inputView::inputUpdateDayOfMonth,
+                value -> {
+                    value = value.trim(); // 3
+                    LocalDate updateDate = converter.convertToLocalDate(value);
+                    if (updateDate.isAfter(currDate)) {
+                        throw new IllegalArgumentException("아직 수정할 수 없습니다.");
+                    }
+
+                    return updateDate;
+                }
+        );
+    }
+
+//    public LocalDate inputUpdateDayOfMonth(String crewName, AttendanceCatalog attendanceCatalog) {
+//        StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
+//
+//        return inputTemplate.execute(
+//                inputView::inputUpdateDayOfMonth,
+//                value -> {
+//                    value = value.trim(); // 3
+//                    LocalDate attendDate = converter.convertToLocalDate(value);
+//
+//                    Attendance oldAttendance = attendanceCatalog.findAttendanceByDate(attendDate, crewName);
+//
+//                    LocalDateTime attendDateTime = LocalDateTime.of(currDate, attendTime);
+//                    AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(attendDateTime);
+//
+//                    Attendance attendance = new Attendance(crewName, attendDateTime, attendanceResult);
+//                    attendanceCatalog.addAttendance(attendance);
+//
+//                    AttendanceDto attendanceDto = new AttendanceDto(oldAttendance,);
+//
+//                    return attendanceDto;
+//                }
+//        );
+//    }
+
     private void validateCurrdate(LocalDate currDate) {
         // 주말 또는 공휴일에 출석을 확인하거나 수정하는 경우
         DayOfWeek dayOfWeek = currDate.getDayOfWeek();

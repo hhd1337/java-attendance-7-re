@@ -1,5 +1,6 @@
 package attendance.converter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +27,19 @@ public class StringToLocalDateTimeConverter {
             throw new IllegalArgumentException("잘못된 형식을 입력하였습니다.");
         }
     }
+
+    // 3 입력 받아서 LocalDate 반환
+    public LocalDate convertToLocalDate(String value) {
+        String trimmed = validateAndTrim(value);
+
+        try {
+            int dayOfMonth = Integer.parseInt(trimmed);
+            return LocalDate.of(2024, 12, dayOfMonth);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("잘못된 형식을 입력하였습니다.");
+        }
+    }
+
 
     private String validateAndTrim(String value) {
         if (value == null || value.isBlank()) {

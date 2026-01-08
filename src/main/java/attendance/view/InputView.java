@@ -19,4 +19,8 @@ public class InputView {
     public String inputNickNameForUpdate() {
         return Console.readLine();
     }
+
+    public String inputUpdateDayOfMonth() {
+        return Console.readLine();
+    }
 }
