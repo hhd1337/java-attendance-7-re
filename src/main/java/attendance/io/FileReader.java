@@ -16,7 +16,6 @@ public class FileReader {
     private static final String FILE_NAME = "attendances.csv";
     private static final String DELIMITER = ",";
 
-    // (일급 컬렉션 클래스 반환) AttendenceCatalog 만들어 반환!
     public AttendanceCatalog makeAttendanceCatalog() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(FILE_NAME);
         StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
@@ -25,8 +24,8 @@ public class FileReader {
         }
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             List<Attendance> attendanceList = reader.lines()
-                    .skip(1) // 헤더 스킵
-                    .filter(line -> !line.isBlank()) // 빈줄 건너뛰기
+                    .skip(1)
+                    .filter(line -> !line.isBlank())
                     .map(line -> line.split(DELIMITER))
                     .map(splitedLine -> {
                         String crewName = splitedLine[0].trim();
@@ -35,11 +34,7 @@ public class FileReader {
 
                         return new Attendance(crewName, attendanceDateTime, attendanceResult);
                     })
-                    .collect(Collectors.toList()); // 가변 리스트 반환
-
-            // 출력 해보고 싶으면 주석해제
-
-            attendanceList.forEach(attendance -> System.out.println(attendance.getAttendanceResult()));
+                    .collect(Collectors.toList());
 
             return new AttendanceCatalog(attendanceList);
         } catch (IOException e) {
