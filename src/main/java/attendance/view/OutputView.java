@@ -1,5 +1,6 @@
 package attendance.view;
 
+import attendance.controller.dto.AttendanceDto;
 import attendance.util.ErrorMessage;
 import attendance.view.formatter.LocalDateTimeFormatter;
 import java.time.LocalDate;
@@ -46,5 +47,21 @@ public class OutputView {
     public void printUpdateTimeInputPrompt() {
         System.out.println("언제로 변경하겠습니까?");
     }
+
+    public void printUpdateTimeInputPrompt(AttendanceDto dto) {
+        LocalDateTime oldDateTime = dto.getOldAttendance().getAttendanceDateTime();
+        String oldAttendanceResult = dto.getOldAttendance().getAttendanceResult().getAttendanceResultKor();
+
+        LocalDateTime newDateTime = dto.getNewAttendance().getAttendanceDateTime();
+        String newAttendanceResult = dto.getNewAttendance().getAttendanceResult().getAttendanceResultKor();
+
+        String dateTimeString = LocalDateTimeFormatter.localDateTimeToStringFormat(oldDateTime);
+        String newDateTimeString = LocalDateTimeFormatter.localDateTimeToHourMinuteFormat(newDateTime);
+
+        System.out.println(
+                dateTimeString + " (" + oldAttendanceResult + ") -> " + newDateTimeString + " (" + newAttendanceResult
+                        + ") 수정 완료!");
+    }
+
 
 }

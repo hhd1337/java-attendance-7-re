@@ -10,4 +10,12 @@ public class AttendanceDto {
         this.oldAttendance = oldAttendance;
         this.newAttendance = newAttendance;
     }
+
+    public Attendance getOldAttendance() {
+        return oldAttendance;
+    }
+
+    public Attendance getNewAttendance() {
+        return newAttendance;
+    }
 }

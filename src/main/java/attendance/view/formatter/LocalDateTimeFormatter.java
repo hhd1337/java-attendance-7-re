@@ -33,4 +33,14 @@ public class LocalDateTimeFormatter {
         );
         return dateTime.format(formatter);
     }
+
+    public static String localDateTimeToHourMinuteFormat(LocalDateTime dateTime) {
+        String dow = LocalDateToDayOfWeekKorFull(dateTime.toLocalDate()); // 예: "월요일"
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                "HH:mm",
+                Locale.KOREAN
+        );
+        return dateTime.format(formatter);
+    }
 }

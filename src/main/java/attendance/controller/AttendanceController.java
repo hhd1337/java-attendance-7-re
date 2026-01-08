@@ -59,7 +59,7 @@ public class AttendanceController {
         outputView.printUpdateTimeInputPrompt();
         AttendanceDto attendanceDto = inputHandler.inputUpdateTime(crewName, attendanceCatalog, updateDate);
 
-
+        outputView.printUpdateTimeInputPrompt(attendanceDto);
     }
 
     private void runAttendanceInsert(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
