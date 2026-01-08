@@ -42,11 +42,18 @@ public class AttendanceController {
             runAttendanceUpdate(crews, attendanceCatalog, currDate);
         }
         if (menu == Menu.CREW_ATTENDANCE_HISTORY) {
-            // runCrewAttendanceHistory();
+            runCrewAttendanceHistory(crews, attendanceCatalog, currDate);
         }
         if (menu == Menu.EXPULSION_DANGERED_CREWS) {
             // runExpulsionDangeredCrews();
         }
+    }
+
+    private void runCrewAttendanceHistory(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
+        outputView.printNickNameInputPrompt();
+        String crewName = inputHandler.inputNickNameForCheck(crews);
+
+
     }
 
     private void runAttendanceUpdate(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {

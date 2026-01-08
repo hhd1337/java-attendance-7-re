@@ -27,4 +27,9 @@ public class InputView {
     public String inputUpdateTime() {
         return Console.readLine();
     }
+
+    public String inputNickNameForCheck() {
+        return Console.readLine();
+    }
+
 }

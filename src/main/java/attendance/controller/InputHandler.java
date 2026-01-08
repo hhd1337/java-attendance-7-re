@@ -73,6 +73,19 @@ public class InputHandler {
         );
     }
 
+    public String inputNickNameForCheck(Crews crews) {
+        return inputTemplate.execute(
+                inputView::inputNickNameForCheck,
+                value -> {
+                    value = value.trim();
+                    if (!crews.isExists(value)) {
+                        throw new IllegalArgumentException("등록되지 않은 닉네임입니다.");
+                    }
+                    return value;
+                }
+        );
+    }
+
     public Attendance inputAttendTime(String crewName, AttendanceCatalog attendanceCatalog, LocalDate currDate) {
         StringToLocalDateTimeConverter converter = new StringToLocalDateTimeConverter();
         return inputTemplate.execute(
