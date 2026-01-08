@@ -53,7 +53,7 @@ public class AttendanceController {
         outputView.printNickNameInputPrompt();
         String crewName = inputHandler.inputNickNameForCheck(crews);
 
-
+        outputView.printCrewAttendHistory(currDate, attendanceCatalog, crewName);
     }
 
     private void runAttendanceUpdate(Crews crews, AttendanceCatalog attendanceCatalog, LocalDate currDate) {

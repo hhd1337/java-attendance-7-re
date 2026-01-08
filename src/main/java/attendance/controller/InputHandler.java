@@ -130,7 +130,7 @@ public class InputHandler {
                     value = value.trim(); // 09:58
                     LocalTime updateTime = converter.convertToTimeMinute(value);
 
-                    Attendance oldAttendance = attendanceCatalog.findAttendanceByDate(updateDate, crewName);
+                    Attendance oldAttendance = attendanceCatalog.findAttendanceByDateOrNull(updateDate, crewName);
 
                     LocalDateTime updateDateTime = LocalDateTime.of(updateDate, updateTime);
                     AttendanceResult attendanceResult = AttendanceResult.judgeAttendanceResult(updateDateTime);

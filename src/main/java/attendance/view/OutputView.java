@@ -1,6 +1,15 @@
 package attendance.view;
 
+import static attendance.domain.AttendanceResult.ABSENT;
+import static attendance.domain.AttendanceResult.LATE;
+import static attendance.domain.AttendanceResult.SUCCESS;
+
 import attendance.controller.dto.AttendanceDto;
+import attendance.domain.Attendance;
+import attendance.domain.AttendanceCatalog;
+import attendance.domain.AttendanceResult;
+import attendance.domain.CrewStatus;
+import attendance.domain.Holiday;
 import attendance.util.ErrorMessage;
 import attendance.view.formatter.LocalDateTimeFormatter;
 import java.time.LocalDate;
@@ -36,6 +45,11 @@ public class OutputView {
         System.out.println(dateTimeString + " (" + AttendanceResultKor + ")");
     }
 
+    public void printNotExistAttendanceResult(LocalDate date) {
+        String dateString = LocalDateTimeFormatter.localDateTimeToNotExistsAttendanceResultFormat(date);
+        System.out.println(dateString + " (결석)");
+    }
+
     public void printNickNameInputForUpdatePrompt() {
         System.out.println("출석을 수정하려는 크루의 닉네임을 입력해 주세요.");
     }
@@ -61,6 +75,53 @@ public class OutputView {
         System.out.println(
                 dateTimeString + " (" + oldAttendanceResult + ") -> " + newDateTimeString + " (" + newAttendanceResult
                         + ") 수정 완료!");
+    }
+
+    public void printCrewAttendHistory(LocalDate currDate, AttendanceCatalog catalog, String crewName) {
+        LocalDate date = currDate.withDayOfMonth(1);
+        int absentCount = 0;
+        int lateCount = 0;
+        int successCount = 0;
+
+        while (!date.isAfter(currDate.minusDays(1))) {
+            if (date.getDayOfWeek().getValue() == 6 || date.getDayOfWeek().getValue() == 7 || Holiday.isHoliday(date)) {
+                date = date.plusDays(1);
+                continue;
+            }
+            Attendance attendance = catalog.findAttendanceByDateOrNull(date, crewName);
+            if (attendance == null) {
+                printNotExistAttendanceResult(date);
+                absentCount++;
+            }
+            if (attendance != null) {
+                AttendanceResult attendanceResult = attendance.getAttendanceResult();
+
+                printAttendInsertResult(attendance.getAttendanceDateTime(),
+                        attendanceResult.getAttendanceResultKor());
+
+                if (attendanceResult.equals(ABSENT)) {
+                    absentCount++;
+                }
+                if (attendanceResult.equals(LATE)) {
+                    lateCount++;
+                }
+                if (attendanceResult.equals(SUCCESS)) {
+                    successCount++;
+                }
+            }
+            date = date.plusDays(1);
+        }
+
+        System.out.printf("출석: %d회%n", successCount);
+        System.out.printf("지각: %d회%n", lateCount);
+        System.out.printf("결석: %d회%n", absentCount);
+        absentCount = absentCount + (lateCount / 3);
+
+        String crewStatus = CrewStatus.judgeCrewStatus(absentCount);
+        if (crewStatus.equals(CrewStatus.GOOD.getCrewStatusKor())) {
+            return;
+        }
+        System.out.printf("%s 대상자입니다.%n", crewStatus);
     }
 
 
