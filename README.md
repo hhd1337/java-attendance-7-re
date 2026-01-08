@@ -12,7 +12,7 @@
 
 ### 파일을 읽어 출석부를 초기화하는 기능
 
-- [ ] src/main/resources/attendances.csv 파일을 읽어 출석기록을 로드한다.
+- [x] src/main/resources/attendances.csv 파일을 읽어 출석기록을 로드한다.
 
 ### 1. 출석확인 기능
 

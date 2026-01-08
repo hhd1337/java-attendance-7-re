@@ -1,6 +1,8 @@
 package attendance.controller;
 
+import attendance.domain.AttendanceCatalog;
 import attendance.domain.Menu;
+import attendance.io.FileReader;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
@@ -16,6 +18,9 @@ public class AttendanceController {
     }
 
     public void process() {
+        FileReader fileReader = new FileReader();
+        AttendanceCatalog attendanceCatalog = fileReader.makeAttendanceCatalog();
+
         Menu menu;
         do {
             LocalDate currDate = DateTimes.now().toLocalDate();
